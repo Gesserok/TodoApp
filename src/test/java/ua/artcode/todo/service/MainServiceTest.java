@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import ua.artcode.todo.dao.TodoDao;
 import ua.artcode.todo.model.Todo;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class MainServiceTest {
     }
 
     @Test
-    public void initData(){
+    public void initData() throws IOException {
 
         mainService.initData();
 

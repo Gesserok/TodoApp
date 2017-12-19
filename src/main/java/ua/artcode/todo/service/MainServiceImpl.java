@@ -3,6 +3,8 @@ package ua.artcode.todo.service;
 import ua.artcode.todo.dao.TodoDao;
 import ua.artcode.todo.model.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public Todo create(Todo todo) {
+    public Todo create(Todo todo) throws IOException {
 
         if(todo == null){
             return null;
@@ -27,14 +29,14 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public void initData() {
+    public void initData() throws IOException {
         todoDao.create(new Todo(1, "", "", false));
         todoDao.create(new Todo(2, "", "", false));
         todoDao.create(new Todo(3, "", "", false));
     }
 
     @Override
-    public List<Todo> getAll() {
+    public List<Todo> getAll() throws FileNotFoundException {
         return todoDao.all();
     }
 

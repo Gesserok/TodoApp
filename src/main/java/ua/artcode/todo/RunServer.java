@@ -9,6 +9,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import ua.artcode.todo.dao.TodoDaoImp;
 import ua.artcode.todo.server.AddTodoHandler;
 import ua.artcode.todo.server.HelloHandler;
+import ua.artcode.todo.server.getTodosHandler;
 import ua.artcode.todo.service.MainService;
 import ua.artcode.todo.service.MainServiceImpl;
 
@@ -22,7 +23,7 @@ public class RunServer {
     public static void main(String[] args) throws Exception {
 
         Gson gson = new Gson();
-        MainService mainService = new MainServiceImpl(new TodoDaoImp());
+        MainService mainService = new MainServiceImpl(new TodoDaoImp(gson));
 
         String SERVER_PORT = System.getenv("PORT");
         if(SERVER_PORT == null){
@@ -46,7 +47,6 @@ public class RunServer {
         File resourceBase = new File(RunServer.class.getResource("/view").getFile());
         resource_handler.setResourceBase(resourceBase.getAbsolutePath());
 
-
         ContextHandler contextHandler1 = new ContextHandler();
         contextHandler1.setContextPath("/add-todo");
         contextHandler1.setHandler(new AddTodoHandler(mainService, gson));
@@ -57,7 +57,12 @@ public class RunServer {
         contextHandler2.setHandler(new HelloHandler());
         contextHandler2.setAllowNullPathInfo(true);
 
-        handlers.setHandlers(new Handler[]{resource_handler, contextHandler1, contextHandler2});
+        ContextHandler contextHandler3 = new ContextHandler();
+        contextHandler3.setContextPath("/todos");
+        contextHandler3.setHandler(new getTodosHandler(mainService, gson));
+        contextHandler3.setAllowNullPathInfo(true);
+
+        handlers.setHandlers(new Handler[]{resource_handler, contextHandler1, contextHandler2, contextHandler3});
 
 
         server.setHandler(handlers);
