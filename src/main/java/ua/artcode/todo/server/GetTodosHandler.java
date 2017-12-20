@@ -32,8 +32,6 @@ public class GetTodosHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-//        response.setContentType("application/json; charset=utf-8");
-//        response.setStatus(HttpServletResponse.SC_CREATED);
         if (request.getMethod().equals("GET") && baseRequest.getOriginalURI().equals("/todos")) {
             List<Todo> todos = mainService.getAll();
             PrintWriter out = response.getWriter();
@@ -48,16 +46,6 @@ public class GetTodosHandler extends AbstractHandler {
             Todo deleted = mainService.delete(todos.get(id).getId());
             System.out.println(todos.get(0));
             System.out.println(deleted.getId() + " " + deleted.getTitle() + " " + deleted.getBody());
-
-            //            Integer integer = gson.fromJson("1", int.class);
-//            System.out.println(gson.fromJson(new InputStreamReader(request.getInputStream()), itemsMapType));
-//            mainService.delete(request.)
-
-
         }
-    }
-    private class Pair {
-        private String str;
-        private int id;
     }
 }
