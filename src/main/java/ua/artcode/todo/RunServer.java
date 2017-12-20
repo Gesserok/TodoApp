@@ -8,8 +8,8 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import ua.artcode.todo.dao.TodoDaoImp;
 import ua.artcode.todo.server.AddTodoHandler;
+import ua.artcode.todo.server.GetTodosHandler;
 import ua.artcode.todo.server.HelloHandler;
-import ua.artcode.todo.server.getTodosHandler;
 import ua.artcode.todo.service.MainService;
 import ua.artcode.todo.service.MainServiceImpl;
 
@@ -44,8 +44,16 @@ public class RunServer {
         resource_handler.setDirectoriesListed(true);
         resource_handler.setWelcomeFiles(new String[]{ "/todo.html" });
 
+        ResourceHandler angular_handler = new ResourceHandler();
+        angular_handler.setDirectoriesListed(true);
+        angular_handler.setWelcomeFiles(new String[]{ "/todoAngular.html" });
+
+
+
         File resourceBase = new File(RunServer.class.getResource("/view").getFile());
         resource_handler.setResourceBase(resourceBase.getAbsolutePath());
+        angular_handler.setResourceBase(resourceBase.getAbsolutePath());
+
 
         ContextHandler contextHandler1 = new ContextHandler();
         contextHandler1.setContextPath("/add-todo");
@@ -59,7 +67,7 @@ public class RunServer {
 
         ContextHandler contextHandler3 = new ContextHandler();
         contextHandler3.setContextPath("/todos");
-        contextHandler3.setHandler(new getTodosHandler(mainService, gson));
+        contextHandler3.setHandler(new GetTodosHandler(mainService, gson));
         contextHandler3.setAllowNullPathInfo(true);
 
         handlers.setHandlers(new Handler[]{resource_handler, contextHandler1, contextHandler2, contextHandler3});

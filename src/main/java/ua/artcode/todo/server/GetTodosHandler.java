@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 
-public class getTodosHandler extends AbstractHandler {
+public class GetTodosHandler extends AbstractHandler {
 
     private MainService mainService;
     private Gson gson;
 
-    public getTodosHandler(MainService mainService, Gson gson) {
+    public GetTodosHandler(MainService mainService, Gson gson) {
         this.mainService = mainService;
         this.gson = gson;
     }
