@@ -1,6 +1,9 @@
 package ua.artcode.todo.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -11,7 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 public class GetTodosHandler extends AbstractHandler {
 
@@ -29,12 +34,30 @@ public class GetTodosHandler extends AbstractHandler {
 
 //        response.setContentType("application/json; charset=utf-8");
 //        response.setStatus(HttpServletResponse.SC_CREATED);
+        if (request.getMethod().equals("GET")) {
+            List<Todo> todos = mainService.getAll();
+            PrintWriter out = response.getWriter();
+            out.println(gson.toJson(todos));
+            out.flush();
+            baseRequest.setHandled(true);
+        }
+        if (request.getMethod().equals("POST")) {
+            List<Todo> todos = mainService.getAll();
+            Integer id = gson.fromJson(new InputStreamReader(request.getInputStream()),Pair.class).id;
 
-        List<Todo> todos = mainService.getAll();
-        PrintWriter out = response.getWriter();
-        out.println(gson.toJson(todos));
-        out.flush();
-        baseRequest.setHandled(true);
+            Todo deleted = mainService.delete(todos.get(id).getId());
+            System.out.println(todos.get(0));
+            System.out.println(deleted.getId() + " " + deleted.getTitle() + " " + deleted.getBody());
 
+            //            Integer integer = gson.fromJson("1", int.class);
+//            System.out.println(gson.fromJson(new InputStreamReader(request.getInputStream()), itemsMapType));
+//            mainService.delete(request.)
+
+
+        }
+    }
+    private class Pair {
+        private String str;
+        private int id;
     }
 }

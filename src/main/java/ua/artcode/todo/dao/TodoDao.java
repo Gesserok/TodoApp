@@ -14,4 +14,5 @@ public interface TodoDao {
     Todo create(Todo todo) throws IOException;
     List<Todo> all() throws FileNotFoundException;
     Todo find(int id);
+    Todo delete(Integer id) throws IOException;
 }

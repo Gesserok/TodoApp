@@ -44,4 +44,9 @@ public class MainServiceImpl implements MainService {
     public Todo find(int id) {
         return todoDao.find(id);
     }
+
+    @Override
+    public Todo delete(Integer id) throws IOException {
+        return todoDao.delete(id);
+    }
 }

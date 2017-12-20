@@ -15,5 +15,6 @@ public interface MainService {
     void initData() throws IOException;
     List<Todo> getAll() throws FileNotFoundException;
     Todo find(int id);
+    Todo delete(Integer id) throws IOException;
 
 }

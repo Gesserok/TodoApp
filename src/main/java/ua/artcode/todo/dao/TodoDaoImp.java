@@ -57,4 +57,13 @@ public class TodoDaoImp implements TodoDao {
     public Todo find(int id) {
         return map.get(id);
     }
+
+    @Override
+    public Todo delete(Integer id) throws IOException {
+        Todo todo = map.remove(id);
+        FileWriter fileWriter = new FileWriter(todosFile);
+        fileWriter.write(gson.toJson(map));
+        fileWriter.flush();
+        return todo;
+    }
 }
