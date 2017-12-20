@@ -44,15 +44,15 @@ public class RunServer {
         resource_handler.setDirectoriesListed(true);
         resource_handler.setWelcomeFiles(new String[]{ "/todo.html" });
 
-        ResourceHandler angular_handler = new ResourceHandler();
-        angular_handler.setDirectoriesListed(true);
-        angular_handler.setWelcomeFiles(new String[]{ "/todoAngular.html" });
+//        ResourceHandler angular_handler = new ResourceHandler();
+//        angular_handler.setDirectoriesListed(true);
+//        angular_handler.setWelcomeFiles(new String[]{ "/todoAngular.html" });
 
 
 
         File resourceBase = new File(RunServer.class.getResource("/view").getFile());
         resource_handler.setResourceBase(resourceBase.getAbsolutePath());
-        angular_handler.setResourceBase(resourceBase.getAbsolutePath());
+//        angular_handler.setResourceBase(resourceBase.getAbsolutePath());
 
 
         ContextHandler contextHandler1 = new ContextHandler();
