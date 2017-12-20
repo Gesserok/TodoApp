@@ -34,16 +34,16 @@ public class GetTodosHandler extends AbstractHandler {
 
 //        response.setContentType("application/json; charset=utf-8");
 //        response.setStatus(HttpServletResponse.SC_CREATED);
-        if (request.getMethod().equals("GET")) {
+        if (request.getMethod().equals("GET") && baseRequest.getOriginalURI().equals("/todos")) {
             List<Todo> todos = mainService.getAll();
             PrintWriter out = response.getWriter();
             out.println(gson.toJson(todos));
             out.flush();
             baseRequest.setHandled(true);
         }
-        if (request.getMethod().equals("POST")) {
+        if (request.getMethod().equals("GET") && baseRequest.getOriginalURI().startsWith("/todos?id=")) {
             List<Todo> todos = mainService.getAll();
-            Integer id = gson.fromJson(new InputStreamReader(request.getInputStream()),Pair.class).id;
+            Integer id = Integer.parseInt(baseRequest.getOriginalURI().split("=")[1]);
 
             Todo deleted = mainService.delete(todos.get(id).getId());
             System.out.println(todos.get(0));
