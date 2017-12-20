@@ -214,6 +214,7 @@
             addTodoAjax(inputValue);
 
 
+
         }
         function delTodoAjax(body) {
 
@@ -249,12 +250,13 @@
         }
 
         function createNewElement(inputValue) {
-            var li = $("<li ></li>").text(inputValue);
+            var li = $("<li></li>").text(inputValue);
 
             $("#myUL").append(li);
 
             li.append($("<SPAN class='close'></SPAN>").text("\u00D7"));
             addListenerToOneCloseButton(li);
+            $("#myInput").val("");
         }
 
         function takeAllTodos() {
